@@ -1,15 +1,17 @@
-var ejs = require('ejs');
+var jade = require('jade');
 var http = require('http');
 var fs = require('fs');
 
 http.createServer(function(request, response){
-    //reading ejsPage.ejs
-    fs.readFile('ejsPage.ejs', 'utf8', function (error, data) {
+    //reading jadePage.jade
+    fs.readFile('jadePage_2.jade', 'utf8', function (error, data) {
         response.writeHead(200, { 'Content-Type' : 'text/html' });
+        //Read Error Check
         if (error){
-            data = 'error!';
+            response.end('File Read Error!');
         }
-        response.end(ejs.render(data, {
+        var fn = jade.compile(data);
+        response.end(fn({
             name : 'Sophie',
             description : 'Love'            
         }));
@@ -17,3 +19,4 @@ http.createServer(function(request, response){
 }).listen(52273, function () {
     console.log('Server Running at 52273');
 });
+

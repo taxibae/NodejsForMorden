@@ -1,0 +1,17 @@
+doctype html
+html
+    head
+        title Index Page
+    body
+        //jade String
+        #header
+            h1 #{name}
+        .article
+            h2 Sophiechan peropero
+        hr
+        
+        - for(var i = 0 ; i < 10 ; i ++){
+            p
+                a(href="http://prelude.iptime.org") Go to owncloud - #{i}
+        - }
+
