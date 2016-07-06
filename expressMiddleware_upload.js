@@ -20,11 +20,18 @@ app.get('/', function(request, response){
 });
 
 app.post('/', function (request, response) {
-    var form = new multiparty.Form();
-    form.parse(request, function (err, field, files) {
-        response.writeHead(200, {'Content-Type' : 'text/plain'});
-        response.write('received upload:\n\n');
-    })
+    var form = new multiparty.Form({
+        uploadDir : __dirname + '\\public'
+    });
+    // form.parse(request, function (err, field, files) {
+    //     response.writeHead(200, {'Content-Type' : 'text/plain'});
+    //     response.write('received upload:\n\n');
+    // })
+    form.on('error', function (err) {
+        console.log(err);
+    });
+
+    response.redirect('/');
 });
 
 
@@ -32,5 +39,4 @@ app.post('/', function (request, response) {
 http.createServer(app).listen(52273, function () {
     console.log('Server Running');
 });
-
 
