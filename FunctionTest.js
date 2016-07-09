@@ -1,3 +1,4 @@
+//함수형 언어의 Scope 구현 방법
 var DB = function () {
     //Private Variable
     var storage = [];
@@ -50,6 +51,7 @@ console.log(DB.count);
 console.log(DB.get(1).level);
 console.log(DB.remove(1));
 
+//생성자 함수의 Scope 구현 방법
 function NumberFunction(a, b){
     this.number1 = a;
     var number2 = b;
