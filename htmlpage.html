@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebSocketTest</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function(){
+            var room = prompt('Type Room Name');
+            var socket = io.connect();
+            
+            socket.emit('join', room);
+            /*Socket Event Connection*/
+            socket.on('showmessage',function(data){
+                $('<p>' + data + '</p>').appendTo('#chatbox');
+            });
+
+            /*Browser Event Connection*/
+            document.getElementById('button').onclick = function(){
+                var text = document.getElementById('text').value;
+                document.getElementById('text').value = "";
+                socket.emit('getmessage',text);
+            };
+            document.getElementById('broadcast').onclick = function(){
+                socket.emit('sendbroadcast','broadcast called');
+            };
+        };
+    </script>
+    </head>
+    <body>
+        <input type="text" id="text" />
+        <input type="button" id="button" value="echo" />
+        <input type="button" id="broadcast" value="broadcast" />
+        <div id="chatbox">
+        </div>
+    </body>
+</html>
+
